@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>12-Month DevOps Engineer Roadmap</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg-primary: #0e0e10;
+    --bg-secondary: #161618;
+    --bg-tertiary: #1e1e22;
+    --bg-card: #1a1a1e;
+    --bg-hover: #22222a;
+    --border: rgba(255,255,255,0.08);
+    --border-hover: rgba(255,255,255,0.16);
+    --text-primary: #f0f0f2;
+    --text-secondary: #9090a0;
+    --text-muted: #5a5a6a;
+    --accent-green: #1D9E75;
+    --accent-green-light: #5DCAA5;
+    --accent-green-bg: rgba(29,158,117,0.12);
+    --accent-green-border: rgba(29,158,117,0.3);
+    --accent-blue: #378ADD;
+    --accent-blue-light: #85B7EB;
+    --accent-blue-bg: rgba(55,138,221,0.1);
+    --accent-blue-border: rgba(55,138,221,0.3);
+    --accent-amber: #EF9F27;
+    --accent-amber-light: #FAC775;
+    --accent-amber-bg: rgba(239,159,39,0.1);
+    --accent-amber-border: rgba(239,159,39,0.3);
+    --accent-pink: #D4537E;
+    --accent-pink-light: #ED93B1;
+    --accent-pink-bg: rgba(212,83,126,0.1);
+    --accent-pink-border: rgba(212,83,126,0.3);
+    --font-mono: 'Space Mono', monospace;
+    --font-sans: 'DM Sans', sans-serif;
+    --radius-sm: 6px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-sans);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    min-height: 100vh;
+    line-height: 1.6;
+  }
+
+  /* ── Header ── */
+  .header {
+    background: var(--bg-secondary);
+    border-bottom: 0.5px solid var(--border);
+    padding: 2rem 2rem 1.5rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .header-inner {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .header-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+  }
+
+  .header-title {
+    font-size: 26px;
+    font-weight: 500;
+    color: var(--text-primary);
+    line-height: 1.2;
+  }
+
+  .header-title span { color: var(--accent-green); }
+
+  /* ── Timeline bar ── */
+  .timeline-wrap {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 1.25rem 2rem 0;
+  }
+
+  .timeline-bar {
+    display: flex;
+    height: 6px;
+    border-radius: 3px;
+    overflow: hidden;
+    gap: 2px;
+    background: var(--bg-tertiary);
+  }
+
+  .tbar-seg {
+    height: 100%;
+    border-radius: 2px;
+    opacity: 0.25;
+    transition: opacity 0.2s;
+    flex: 1;
+  }
+  .tbar-seg.active { opacity: 1; }
+
+  .timeline-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+    margin-top: 6px;
+  }
+
+  /* ── Phase Tabs ── */
+  .tabs-wrap {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 1rem 2rem 0;
+  }
+
+  .phase-tabs {
+    display: flex;
+    gap: 2px;
+    border-bottom: 0.5px solid var(--border);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .phase-tabs::-webkit-scrollbar { display: none; }
+
+  .phase-tab {
+    padding: 9px 18px 13px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--text-secondary);
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    transition: all 0.15s ease;
+    background: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    font-family: var(--font-sans);
+    border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  }
+
+  .phase-tab:hover {
+    color: var(--text-primary);
+    background: var(--bg-tertiary);
+  }
+
+  .phase-tab.active {
+    color: var(--text-primary);
+    font-weight: 500;
+    border-bottom-color: var(--active-color, var(--accent-green));
+    background: var(--bg-secondary);
+  }
+
+  .phase-dot {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    margin-right: 7px;
+    vertical-align: middle;
+    margin-bottom: 1px;
+  }
+
+  /* ── Content ── */
+  .content-wrap {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 1.75rem 2rem 3rem;
+  }
+
+  .phase-panel { display: none; }
+  .phase-panel.active { display: block; }
+
+  /* ── Stats row ── */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 1.25rem;
+  }
+
+  .stat-card {
+    background: var(--bg-secondary);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 14px;
+    text-align: center;
+  }
+
+  .stat-num {
+    font-family: var(--font-mono);
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .stat-label {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  /* ── Goal box ── */
+  .goal-box {
+    border-radius: var(--radius-md);
+    padding: 14px 18px;
+    margin-bottom: 1.25rem;
+    font-size: 14px;
+    line-height: 1.65;
+    border: 0.5px solid;
+  }
+
+  .goal-label {
+    font-weight: 600;
+    margin-right: 4px;
+  }
+
+  /* ── Section cards ── */
+  .section-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  .section-card {
+    background: var(--bg-card);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1rem 1.25rem;
+    transition: border-color 0.15s;
+  }
+
+  .section-card:hover { border-color: var(--border-hover); }
+
+  .section-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  /* ── Tags ── */
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .tag {
+    font-size: 12px;
+    padding: 4px 10px;
+    border-radius: 5px;
+    border: 0.5px solid var(--border);
+    color: var(--text-secondary);
+    background: var(--bg-secondary);
+    transition: all 0.12s;
+    cursor: default;
+  }
+
+  .tag:hover {
+    border-color: var(--border-hover);
+    color: var(--text-primary);
+  }
+
+  .tag.hl {
+    border: 0.5px solid;
+  }
+
+  /* ── Full-width section ── */
+  .section-full {
+    background: var(--bg-card);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1rem 1.25rem;
+    margin-bottom: 12px;
+    transition: border-color 0.15s;
+  }
+
+  /* ── Projects ── */
+  .project-list { display: flex; flex-direction: column; gap: 8px; }
+
+  .project-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 11px 12px;
+    border-radius: var(--radius-md);
+    background: var(--bg-secondary);
+    cursor: pointer;
+    transition: background 0.12s;
+    border: 0.5px solid transparent;
+  }
+
+  .project-item:hover {
+    background: var(--bg-hover);
+    border-color: var(--border);
+  }
+
+  .proj-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 14px;
+  }
+
+  .proj-name {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-primary);
+    line-height: 1.3;
+  }
+
+  .proj-desc {
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin-top: 3px;
+  }
+
+  /* ── Certs ── */
+  .cert-list { display: flex; flex-direction: column; gap: 8px; }
+
+  .cert-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 14px;
+    border-radius: var(--radius-md);
+    border: 0.5px solid var(--border);
+    cursor: pointer;
+    transition: all 0.12s;
+    background: var(--bg-secondary);
+  }
+
+  .cert-item:hover {
+    border-color: var(--border-hover);
+    background: var(--bg-hover);
+  }
+
+  .cert-badge {
+    font-size: 11px;
+    font-weight: 600;
+    font-family: var(--font-mono);
+    padding: 3px 8px;
+    border-radius: 4px;
+    flex-shrink: 0;
+  }
+
+  .cert-name {
+    font-size: 13px;
+    color: var(--text-primary);
+    flex: 1;
+  }
+
+  .cert-time {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+    white-space: nowrap;
+  }
+
+  /* ── Job milestones ── */
+  .milestones {
+    font-size: 13px;
+    line-height: 2;
+  }
+
+  /* ── Footer ── */
+  .footer {
+    text-align: center;
+    padding: 2rem;
+    font-size: 12px;
+    color: var(--text-muted);
+    border-top: 0.5px solid var(--border);
+    font-family: var(--font-mono);
+    letter-spacing: 0.04em;
+  }
+
+  /* ── Scrollbar styling ── */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg-primary); }
+  ::-webkit-scrollbar-thumb { background: var(--bg-tertiary); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <div class="header-inner">
+    <div class="header-eyebrow">12-Month Career Roadmap</div>
+    <div class="header-title">Beginner → <span>DevOps Engineer</span></div>
+  </div>
+</div>
+
+<!-- Timeline -->
+<div class="timeline-wrap">
+  <div class="timeline-bar">
+    <div class="tbar-seg active" style="background:#1D9E75;" id="seg-0"></div>
+    <div class="tbar-seg" style="background:#378ADD;" id="seg-1"></div>
+    <div class="tbar-seg" style="background:#EF9F27;" id="seg-2"></div>
+    <div class="tbar-seg" style="background:#D4537E;" id="seg-3"></div>
+  </div>
+  <div class="timeline-labels">
+    <span>Month 1</span><span>Month 4</span><span>Month 7</span><span>Month 10</span><span>Month 12</span>
+  </div>
+</div>
+
+<!-- Tabs -->
+<div class="tabs-wrap">
+  <div class="phase-tabs">
+    <button class="phase-tab active" style="--active-color:#1D9E75;" onclick="switchPhase(0)">
+      <span class="phase-dot" style="background:#1D9E75;"></span>Phase 1 · Months 1–3
+    </button>
+    <button class="phase-tab" style="--active-color:#378ADD;" onclick="switchPhase(1)">
+      <span class="phase-dot" style="background:#378ADD;"></span>Phase 2 · Months 4–6
+    </button>
+    <button class="phase-tab" style="--active-color:#EF9F27;" onclick="switchPhase(2)">
+      <span class="phase-dot" style="background:#EF9F27;"></span>Phase 3 · Months 7–9
+    </button>
+    <button class="phase-tab" style="--active-color:#D4537E;" onclick="switchPhase(3)">
+      <span class="phase-dot" style="background:#D4537E;"></span>Phase 4 · Months 10–12
+    </button>
+  </div>
+</div>
+
+<!-- Content -->
+<div class="content-wrap">
+
+  <!-- ── PHASE 1 ── -->
+  <div class="phase-panel active" id="panel-0">
+    <div class="stats-row">
+      <div class="stat-card"><div class="stat-num" style="color:#1D9E75;">8</div><div class="stat-label">Core Skills</div></div>
+      <div class="stat-card"><div class="stat-num" style="color:#1D9E75;">3</div><div class="stat-label">Projects</div></div>
+      <div class="stat-card"><div class="stat-num" style="color:#1D9E75;">2</div><div class="stat-label">Certs</div></div>
+    </div>
+
+    <div class="goal-box" style="background:rgba(29,158,117,0.08);border-color:rgba(29,158,117,0.25);">
+      <span class="goal-label" style="color:#5DCAA5;">Phase Goal:</span>
+      <span style="color:#9FE1CB;">Build the foundation — Linux, networking, Git, and scripting. You'll go from zero to writing your first automation scripts and managing servers confidently.</span>
+    </div>
+
+    <div class="section-grid">
+      <div class="section-card">
+        <div class="section-label" style="color:#1D9E75;">Skills to Learn</div>
+        <div class="tags">
+          <span class="tag">Linux fundamentals</span>
+          <span class="tag">Bash scripting</span>
+          <span class="tag">Networking basics (DNS, HTTP, TCP/IP)</span>
+          <span class="tag">Git & GitHub</span>
+          <span class="tag">SSH & file permissions</span>
+          <span class="tag">Command-line tools</span>
+          <span class="tag">Python basics</span>
+          <span class="tag">YAML & JSON</span>
+        </div>
+      </div>
+      <div class="section-card">
+        <div class="section-label" style="color:#1D9E75;">Tools & Technologies</div>
+        <div class="tags">
+          <span class="tag hl" style="background:rgba(29,158,117,0.12);color:#5DCAA5;border-color:rgba(29,158,117,0.3);">Ubuntu / CentOS</span>
+          <span class="tag hl" style="background:rgba(29,158,117,0.12);color:#5DCAA5;border-color:rgba(29,158,117,0.3);">Bash</span>
+          <span class="tag hl" style="background:rgba(29,158,117,0.12);color:#5DCAA5;border-color:rgba(29,158,117,0.3);">Git</span>
+          <span class="tag hl" style="background:rgba(29,158,117,0.12);color:#5DCAA5;border-color:rgba(29,158,117,0.3);">GitHub</span>
+          <span class="tag hl" style="background:rgba(29,158,117,0.12);color:#5DCAA5;border-color:rgba(29,158,117,0.3);">VirtualBox / WSL2</span>
+          <span class="tag hl" style="background:rgba(29,158,117,0.12);color:#5DCAA5;border-color:rgba(29,158,117,0.3);">Python 3</span>
+          <span class="tag hl" style="background:rgba(29,158,117,0.12);color:#5DCAA5;border-color:rgba(29,158,117,0.3);">Vim / nano</span>
+          <span class="tag hl" style="background:rgba(29,158,117,0.12);color:#5DCAA5;border-color:rgba(29,158,117,0.3);">cron jobs</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-full">
+      <div class="section-label" style="color:#1D9E75;margin-bottom:12px;">Projects</div>
+      <div class="project-list">
+        <div class="project-item">
+          <div class="proj-icon" style="background:rgba(29,158,117,0.15);">🖥️</div>
+          <div>
+            <div class="proj-name">Linux Server Setup & Hardening</div>
+            <div class="proj-desc">Spin up a Linux VM, configure users, SSH keys, firewall rules (ufw), and cron-based backups</div>
+          </div>
+        </div>
+        <div class="project-item">
+          <div class="proj-icon" style="background:rgba(29,158,117,0.15);">⚙️</div>
+          <div>
+            <div class="proj-name">Bash Automation Scripts</div>
+            <div class="proj-desc">Write scripts to automate log rotation, disk monitoring, and system health checks</div>
+          </div>
+        </div>
+        <div class="project-item">
+          <div class="proj-icon" style="background:rgba(29,158,117,0.15);">🌿</div>
+          <div>
+            <div class="proj-name">Git Branching Workflow</div>
+            <div class="proj-desc">Practice feature branching, pull requests, merge conflicts, and GitHub Actions basics</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-full">
+      <div class="section-label" style="color:#1D9E75;margin-bottom:12px;">Certifications to Pursue</div>
+      <div class="cert-list">
+        <div class="cert-item">
+          <span class="cert-badge" style="background:rgba(29,158,117,0.15);color:#5DCAA5;">LPI</span>
+          <span class="cert-name">Linux Essentials (LE-1) — Exam 010-160</span>
+          <span class="cert-time">~4 weeks</span>
+        </div>
+        <div class="cert-item">
+          <span class="cert-badge" style="background:rgba(29,158,117,0.15);color:#5DCAA5;">GitHub</span>
+          <span class="cert-name">GitHub Foundations</span>
+          <span class="cert-time">~2 weeks</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── PHASE 2 ── -->
+  <div class="phase-panel" id="panel-1">
+    <div class="stats-row">
+      <div class="stat-card"><div class="stat-num" style="color:#378ADD;">9</div><div class="stat-label">Core Skills</div></div>
+      <div class="stat-card"><div class="stat-num" style="color:#378ADD;">3</div><div class="stat-label">Projects</div></div>
+      <div class="stat-card"><div class="stat-num" style="color:#378ADD;">2</div><div class="stat-label">Certs</div></div>
+    </div>
+
+    <div class="goal-box" style="background:rgba(55,138,221,0.08);border-color:rgba(55,138,221,0.25);">
+      <span class="goal-label" style="color:#85B7EB;">Phase Goal:</span>
+      <span style="color:#B5D4F4;">Master containers and cloud fundamentals. You'll deploy real applications using Docker, learn Kubernetes basics, and get hands-on with AWS or Azure.</span>
+    </div>
+
+    <div class="section-grid">
+      <div class="section-card">
+        <div class="section-label" style="color:#378ADD;">Skills to Learn</div>
+        <div class="tags">
+          <span class="tag">Docker & containerization</span>
+          <span class="tag">Docker Compose</span>
+          <span class="tag">Kubernetes basics (k8s)</span>
+          <span class="tag">Cloud fundamentals (AWS/Azure)</span>
+          <span class="tag">Infrastructure as Code intro</span>
+          <span class="tag">Networking in cloud (VPC, subnets)</span>
+          <span class="tag">CI/CD concepts</span>
+          <span class="tag">Container security basics</span>
+          <span class="tag">Load balancing & DNS</span>
+        </div>
+      </div>
+      <div class="section-card">
+        <div class="section-label" style="color:#378ADD;">Tools & Technologies</div>
+        <div class="tags">
+          <span class="tag hl" style="background:rgba(55,138,221,0.12);color:#85B7EB;border-color:rgba(55,138,221,0.3);">Docker</span>
+          <span class="tag hl" style="background:rgba(55,138,221,0.12);color:#85B7EB;border-color:rgba(55,138,221,0.3);">Docker Hub</span>
+          <span class="tag hl" style="background:rgba(55,138,221,0.12);color:#85B7EB;border-color:rgba(55,138,221,0.3);">Kubernetes</span>
+          <span class="tag hl" style="background:rgba(55,138,221,0.12);color:#85B7EB;border-color:rgba(55,138,221,0.3);">Minikube</span>
+          <span class="tag hl" style="background:rgba(55,138,221,0.12);color:#85B7EB;border-color:rgba(55,138,221,0.3);">AWS (EC2, S3, IAM)</span>
+          <span class="tag hl" style="background:rgba(55,138,221,0.12);color:#85B7EB;border-color:rgba(55,138,221,0.3);">kubectl</span>
+          <span class="tag hl" style="background:rgba(55,138,221,0.12);color:#85B7EB;border-color:rgba(55,138,221,0.3);">Terraform (intro)</span>
+          <span class="tag hl" style="background:rgba(55,138,221,0.12);color:#85B7EB;border-color:rgba(55,138,221,0.3);">GitHub Actions</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-full">
+      <div class="section-label" style="color:#378ADD;margin-bottom:12px;">Projects</div>
+      <div class="project-list">
+        <div class="project-item">
+          <div class="proj-icon" style="background:rgba(55,138,221,0.15);">🐳</div>
+          <div>
+            <div class="proj-name">Dockerize a Full-Stack App</div>
+            <div class="proj-desc">Containerize a Node.js + PostgreSQL app using Docker Compose, push to Docker Hub</div>
+          </div>
+        </div>
+        <div class="project-item">
+          <div class="proj-icon" style="background:rgba(55,138,221,0.15);">☸️</div>
+          <div>
+            <div class="proj-name">Kubernetes Deployment on Minikube</div>
+            <div class="proj-desc">Deploy a containerized app, set up a Service, ConfigMap, and HPA (auto-scaling)</div>
+          </div>
+        </div>
+        <div class="project-item">
+          <div class="proj-icon" style="background:rgba(55,138,221,0.15);">☁️</div>
+          <div>
+            <div class="proj-name">AWS Static Site + CI/CD Pipeline</div>
+            <div class="proj-desc">Host a static site on S3 + CloudFront, auto-deploy via GitHub Actions on push</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-full">
+      <div class="section-label" style="color:#378ADD;margin-bottom:12px;">Certifications to Pursue</div>
+      <div class="cert-list">
+        <div class="cert-item">
+          <span class="cert-badge" style="background:rgba(55,138,221,0.15);color:#85B7EB;">AWS</span>
+          <span class="cert-name">AWS Certified Cloud Practitioner (CLF-C02)</span>
+          <span class="cert-time">~6 weeks</span>
+        </div>
+        <div class="cert-item">
+          <span class="cert-badge" style="background:rgba(55,138,221,0.15);color:#85B7EB;">Docker</span>
+          <span class="cert-name">Docker Certified Associate (DCA)</span>
+          <span class="cert-time">~4 weeks</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── PHASE 3 ── -->
+  <div class="phase-panel" id="panel-2">
+    <div class="stats-row">
+      <div class="stat-card"><div class="stat-num" style="color:#EF9F27;">10</div><div class="stat-label">Core Skills</div></div>
+      <div class="stat-card"><div class="stat-num" style="color:#EF9F27;">4</div><div class="stat-label">Projects</div></div>
+      <div class="stat-card"><div class="stat-num" style="color:#EF9F27;">2</div><div class="stat-label">Certs</div></div>
+    </div>
+
+    <div class="goal-box" style="background:rgba(239,159,39,0.08);border-color:rgba(239,159,39,0.25);">
+      <span class="goal-label" style="color:#FAC775;">Phase Goal:</span>
+      <span style="color:#FAD999;">Go deep on IaC, monitoring, and CI/CD pipelines. This is where you start thinking and operating like a real DevOps engineer — automating infrastructure and observing systems.</span>
+    </div>
+
+    <div class="section-grid">
+      <div class="section-card">
+        <div class="section-label" style="color:#EF9F27;">Skills to Learn</div>
+        <div class="tags">
+          <span class="tag">Terraform (advanced)</span>
+          <span class="tag">Ansible</span>
+          <span class="tag">Helm charts</span>
+          <span class="tag">Prometheus & Grafana</span>
+          <span class="tag">ELK Stack</span>
+          <span class="tag">Jenkins / GitLab CI</span>
+          <span class="tag">ArgoCD (GitOps)</span>
+          <span class="tag">Secrets management (Vault)</span>
+          <span class="tag">Cost optimization</span>
+          <span class="tag">Incident management basics</span>
+        </div>
+      </div>
+      <div class="section-card">
+        <div class="section-label" style="color:#EF9F27;">Tools & Technologies</div>
+        <div class="tags">
+          <span class="tag hl" style="background:rgba(239,159,39,0.12);color:#FAC775;border-color:rgba(239,159,39,0.3);">Terraform</span>
+          <span class="tag hl" style="background:rgba(239,159,39,0.12);color:#FAC775;border-color:rgba(239,159,39,0.3);">Ansible</span>
+          <span class="tag hl" style="background:rgba(239,159,39,0.12);color:#FAC775;border-color:rgba(239,159,39,0.3);">Helm</span>
+          <span class="tag hl" style="background:rgba(239,159,39,0.12);color:#FAC775;border-color:rgba(239,159,39,0.3);">Prometheus</span>
+          <span class="tag hl" style="background:rgba(239,159,39,0.12);color:#FAC775;border-color:rgba(239,159,39,0.3);">Grafana</span>
+          <span class="tag hl" style="background:rgba(239,159,39,0.12);color:#FAC775;border-color:rgba(239,159,39,0.3);">Jenkins</span>
+          <span class="tag hl" style="background:rgba(239,159,39,0.12);color:#FAC775;border-color:rgba(239,159,39,0.3);">ArgoCD</span>
+          <span class="tag hl" style="background:rgba(239,159,39,0.12);color:#FAC775;border-color:rgba(239,159,39,0.3);">HashiCorp Vault</span>
+          <span class="tag hl" style="background:rgba(239,159,39,0.12);color:#FAC775;border-color:rgba(239,159,39,0.3);">ELK Stack</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-full">
+      <div class="section-label" style="color:#EF9F27;margin-bottom:12px;">Projects</div>
+      <div class="project-list">
+        <div class="project-item">
+          <div class="proj-icon" style="background:rgba(239,159,39,0.15);">🏗️</div>
+          <div>
+            <div class="proj-name">Multi-tier AWS Infrastructure with Terraform</div>
+            <div class="proj-desc">Provision VPC, EC2, RDS, ALB using Terraform modules with remote state in S3</div>
+          </div>
+        </div>
+        <div class="project-item">
+          <div class="proj-icon" style="background:rgba(239,159,39,0.15);">🔄</div>
+          <div>
+            <div class="proj-name">End-to-End CI/CD Pipeline</div>
+            <div class="proj-desc">Build → test → Docker build → push to ECR → deploy to Kubernetes via ArgoCD</div>
+          </div>
+        </div>
+        <div class="project-item">
+          <div class="proj-icon" style="background:rgba(239,159,39,0.15);">📊</div>
+          <div>
+            <div class="proj-name">Monitoring Stack Setup</div>
+            <div class="proj-desc">Deploy Prometheus + Grafana on k8s, create dashboards, set up alerting rules</div>
+          </div>
+        </div>
+        <div class="project-item">
+          <div class="proj-icon" style="background:rgba(239,159,39,0.15);">📋</div>
+          <div>
+            <div class="proj-name">Ansible Configuration Management</div>
+            <div class="proj-desc">Write playbooks to configure nginx, deploy apps, manage users across multiple servers</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-full">
+      <div class="section-label" style="color:#EF9F27;margin-bottom:12px;">Certifications to Pursue</div>
+      <div class="cert-list">
+        <div class="cert-item">
+          <span class="cert-badge" style="background:rgba(239,159,39,0.15);color:#FAC775;">HashiCorp</span>
+          <span class="cert-name">Terraform Associate (003)</span>
+          <span class="cert-time">~5 weeks</span>
+        </div>
+        <div class="cert-item">
+          <span class="cert-badge" style="background:rgba(239,159,39,0.15);color:#FAC775;">CNCF</span>
+          <span class="cert-name">Certified Kubernetes Administrator (CKA)</span>
+          <span class="cert-time">~6–8 weeks</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── PHASE 4 ── -->
+  <div class="phase-panel" id="panel-3">
+    <div class="stats-row">
+      <div class="stat-card"><div class="stat-num" style="color:#D4537E;">10</div><div class="stat-label">Core Skills</div></div>
+      <div class="stat-card"><div class="stat-num" style="color:#D4537E;">3</div><div class="stat-label">Projects</div></div>
+      <div class="stat-card"><div class="stat-num" style="color:#D4537E;">2</div><div class="stat-label">Certs</div></div>
+    </div>
+
+    <div class="goal-box" style="background:rgba(212,83,126,0.08);border-color:rgba(212,83,126,0.25);">
+      <span class="goal-label" style="color:#ED93B1;">Phase Goal:</span>
+      <span style="color:#F4C0D1;">Job-ready polish — security, SRE practices, advanced cloud, and portfolio completion. Land your first DevOps role with a full portfolio and two strong certifications.</span>
+    </div>
+
+    <div class="section-grid">
+      <div class="section-card">
+        <div class="section-label" style="color:#D4537E;">Skills to Learn</div>
+        <div class="tags">
+          <span class="tag">DevSecOps (SAST, DAST, image scanning)</span>
+          <span class="tag">SRE principles (SLI/SLO/SLA)</span>
+          <span class="tag">Advanced Kubernetes (RBAC, NetworkPolicies)</span>
+          <span class="tag">Service mesh (Istio/Linkerd basics)</span>
+          <span class="tag">Cost optimization & FinOps</span>
+          <span class="tag">Disaster recovery & HA</span>
+          <span class="tag">System design for DevOps</span>
+          <span class="tag">Interview prep</span>
+          <span class="tag">AWS Solutions Architect concepts</span>
+          <span class="tag">On-call & incident response</span>
+        </div>
+      </div>
+      <div class="section-card">
+        <div class="section-label" style="color:#D4537E;">Tools & Technologies</div>
+        <div class="tags">
+          <span class="tag hl" style="background:rgba(212,83,126,0.12);color:#ED93B1;border-color:rgba(212,83,126,0.3);">Trivy / Snyk</span>
+          <span class="tag hl" style="background:rgba(212,83,126,0.12);color:#ED93B1;border-color:rgba(212,83,126,0.3);">Falco</span>
+          <span class="tag hl" style="background:rgba(212,83,126,0.12);color:#ED93B1;border-color:rgba(212,83,126,0.3);">Istio</span>
+          <span class="tag hl" style="background:rgba(212,83,126,0.12);color:#ED93B1;border-color:rgba(212,83,126,0.3);">PagerDuty / OpsGenie</span>
+          <span class="tag hl" style="background:rgba(212,83,126,0.12);color:#ED93B1;border-color:rgba(212,83,126,0.3);">AWS EKS</span>
+          <span class="tag hl" style="background:rgba(212,83,126,0.12);color:#ED93B1;border-color:rgba(212,83,126,0.3);">Datadog / New Relic</span>
+          <span class="tag hl" style="background:rgba(212,83,126,0.12);color:#ED93B1;border-color:rgba(212,83,126,0.3);">SonarQube</span>
+          <span class="tag hl" style="background:rgba(212,83,126,0.12);color:#ED93B1;border-color:rgba(212,83,126,0.3);">Crossplane</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-full">
+      <div class="section-label" style="color:#D4537E;margin-bottom:12px;">Projects (Portfolio Capstones)</div>
+      <div class="project-list">
+        <div class="project-item">
+          <div class="proj-icon" style="background:rgba(212,83,126,0.15);">🚀</div>
+          <div>
+            <div class="proj-name">Production-Grade DevOps Platform</div>
+            <div class="proj-desc">Full platform: Terraform infra + EKS cluster + ArgoCD GitOps + Prometheus/Grafana + security scanning in CI</div>
+          </div>
+        </div>
+        <div class="project-item">
+          <div class="proj-icon" style="background:rgba(212,83,126,0.15);">🔐</div>
+          <div>
+            <div class="proj-name">DevSecOps Pipeline</div>
+            <div class="proj-desc">Integrate Trivy, Snyk, SonarQube, and OPA policy gates into the CI/CD pipeline</div>
+          </div>
+        </div>
+        <div class="project-item">
+          <div class="proj-icon" style="background:rgba(212,83,126,0.15);">📟</div>
+          <div>
+            <div class="proj-name">SRE Runbook & Incident Simulation</div>
+            <div class="proj-desc">Write SLOs, create Grafana alerts, simulate incidents and practice runbook-driven response</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-full">
+      <div class="section-label" style="color:#D4537E;margin-bottom:12px;">Certifications to Complete</div>
+      <div class="cert-list">
+        <div class="cert-item">
+          <span class="cert-badge" style="background:rgba(212,83,126,0.15);color:#ED93B1;">AWS</span>
+          <span class="cert-name">AWS Solutions Architect – Associate (SAA-C03)</span>
+          <span class="cert-time">~8 weeks</span>
+        </div>
+        <div class="cert-item">
+          <span class="cert-badge" style="background:rgba(212,83,126,0.15);color:#ED93B1;">CNCF</span>
+          <span class="cert-name">Certified Kubernetes App Developer (CKAD)</span>
+          <span class="cert-time">~4 weeks</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-full" style="border-color:rgba(212,83,126,0.3);background:rgba(212,83,126,0.06);">
+      <div class="section-label" style="color:#D4537E;margin-bottom:10px;">Job Search Milestones</div>
+      <div class="milestones" style="color:#ED93B1;">
+        ✦ GitHub portfolio with 6–8 real projects with READMEs<br>
+        ✦ LinkedIn profile with DevOps skills, certs, and project links<br>
+        ✦ Contribute to 1–2 open-source DevOps tools<br>
+        ✦ Practice 20+ DevOps interview questions (k8s, CI/CD, IaC)<br>
+        ✦ Apply to junior DevOps / Platform Engineer / Cloud Engineer roles
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  12-Month DevOps Engineer Career Roadmap &nbsp;·&nbsp; Beginner to Job-Ready
+</div>
+
+<script>
+  function switchPhase(idx) {
+    document.querySelectorAll('.phase-tab').forEach((t, i) => t.classList.toggle('active', i === idx));
+    document.querySelectorAll('.phase-panel').forEach((p, i) => p.classList.toggle('active', i === idx));
+    document.querySelectorAll('.tbar-seg').forEach((s, i) => s.classList.toggle('active', i === idx));
+  }
+</script>
+
+</body>
+</html>
